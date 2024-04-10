@@ -22,9 +22,9 @@ open class JPASpecificationDSLTest {
     @Autowired
     lateinit var tvShowRepo: TvShowRepository
 
-    lateinit var hemlockGrove: TvShow
-    lateinit var theWalkingDead: TvShow
-    lateinit var betterCallSaul: TvShow
+    private lateinit var hemlockGrove: TvShow
+    private lateinit var theWalkingDead: TvShow
+    private lateinit var betterCallSaul: TvShow
 
     @BeforeEach
     fun setup() {
@@ -72,7 +72,7 @@ open class JPASpecificationDSLTest {
      * A single TvShowQuery is equivalent to an AND of all supplied criteria.
      * Note: any criteria that is null will be ignored (not included in the query).
      */
-    fun TvShowQuery.toSpecification(): Specification<TvShow> = and(
+    private fun TvShowQuery.toSpecification(): Specification<TvShow> = and(
             hasName(name),
             availableOnNetflix(availableOnNetflix),
             hasKeywordIn(keywords),
@@ -82,7 +82,7 @@ open class JPASpecificationDSLTest {
     /**
      * A collection of TvShowQueries is equivalent to an OR of all the queries in the collection.
      */
-    fun Iterable<TvShowQuery>.toSpecification(): Specification<TvShow> = or(
+    private fun Iterable<TvShowQuery>.toSpecification(): Specification<TvShow> = or(
             map { query -> query.toSpecification() }
     )
 
